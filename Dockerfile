@@ -1,12 +1,12 @@
 #syntax=docker/dockerfile:1.2
 
 ARG DOCKER_CHANNEL=stable
-ARG DOCKER_VERSION=18.09.1
+ARG DOCKER_VERSION=18.09.9
 # NOTE: kubectl version should be one minor version less than https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ARG KUBECTL_VERSION=1.19.6
+ARG KUBECTL_VERSION=1.28.5
 ARG JQ_VERSION=1.6
 
-FROM docker.io/library/golang:1.16 as builder
+FROM docker.io/library/golang:1.21 as builder
 
 RUN apt-get update && apt-get --no-install-recommends install -y \
     git \
@@ -66,7 +66,7 @@ COPY hack/nsswitch.conf /etc/
 
 ####################################################################################################
 
-FROM docker.io/library/node:14.0.0 as argo-ui
+FROM docker.io/library/node:21.5.0 as argo-ui
 
 COPY ui/package.json ui/yarn.lock ui/
 
